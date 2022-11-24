@@ -61,18 +61,20 @@ def create_table():
     conn.commit()
     conn.close()
 
-def get_stats():
+def display_health_status():
     """get the stats from storage application"""
     session = DB_SESSION()
     time = datetime.datetime.now()
-    readings = session.query(Stats).order_by(Stats.last_updated.desc()).first()
+    readings = session.query(Health).order_by(Health.last_updated.desc()).first()
     
     if readings == None:
-        ss = Stats(5,6,100, 200, 10,10, time)
+        ss = Health('Down','Down','Down','Down', time)
         session.add(ss)
         session.commit()
+        readings = session.query(Health).order_by(Health.last_updated.desc()).first()
+        result = readings.to_dict()
         session.close()
-        return None
+        return result, 201
 
     else:
         result = readings.to_dict()
@@ -82,8 +84,31 @@ def get_stats():
 
 def populate_db():
     """ store the result in sqlite """
+    session = DB_SESSION()
+    time = datetime.datetime.now()
+    create_table()
+    result = session.query(Health).order_by(Health.last_updated.desc()).first()
+   
 
+    if result == None:
+        hc = Health('Down','Down','Down','Down', time)
+    else:
+        res_receiver = requests.get(app_config['eventstore']['url']['receiver'])
+        receiver = res_receiver.json()
+        print(receiver)
 
+        
+  
+        # bs = Health(
+        # receiver
+        # time
+        # )
+        
+        # session.add(bs)
+    session.add(hc)
+    session.commit()
+    session.close()
+    return NoContent, 201
 
 def init_scheduler():
     """ initialize the scheduler to run periodically"""
