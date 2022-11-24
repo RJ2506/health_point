@@ -93,25 +93,25 @@ def populate_db():
     if result == None:
         hc = Health('Down','Down','Down','Down', time)
     else:
-        res_receiver = requests.get(app_config['eventstore']['url']['receiver'], timeout=5)
+        res_receiver = requests.get(app_config['eventstore']['receiver'], timeout=5)
         if res_receiver.status_code == 200:
             receiver = 'Running'
         else:
             receiver = 'Down'
 
-        res_storage = requests.get(app_config['eventstore']['url']['storage'], timeout=5)
+        res_storage = requests.get(app_config['eventstore']['storage'], timeout=5)
         if res_storage.status_code == 200:
             storage = 'Running'
         else:
             storage = 'Down'
         
-        res_processing = requests.get(app_config['eventstore']['url']['processing'], timeout=5)
+        res_processing = requests.get(app_config['eventstore']['processing'], timeout=5)
         if res_processing.status_code == 200:
             processing = 'Running'
         else:
             processing = 'Down'
         
-        res_audit = requests.get(app_config['eventstore']['url']['audit'], timeout=5)
+        res_audit = requests.get(app_config['eventstore']['audit'], timeout=5)
         if res_audit.status_code == 200:
             audit = 'Running'
         else:
