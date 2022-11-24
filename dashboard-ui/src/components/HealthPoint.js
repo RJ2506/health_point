@@ -31,9 +31,6 @@ export default function HealthCheck() {
   } else if (isLoaded === false) {
     return <div>Loading...</div>;
   } else if (isLoaded === true) {
-    const date = new Date(health['last_updated']);
-    const seconds = Math.floor(date.getTime() / 1000);
-
     return (
       <div>
         <h1>Health Points</h1>
@@ -52,7 +49,7 @@ export default function HealthCheck() {
               <th> Audit: {health["audit"]}</th>
             </tr>
             <tr>
-              <th>Last Updated: {seconds} seconds ago</th>
+              <th>Last Updated: {health["last_updated"]} </th>
             </tr>
           </tbody>
         </table>
