@@ -23,8 +23,6 @@ function App() {
             </div>
             <div>
                 <HealthCheck/>
-                <h1>Health Check</h1>
-                {rendered_endpoints}
             </div>
             
         </div>

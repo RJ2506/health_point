@@ -39,15 +39,11 @@ export default function HealthCheck() {
         <table className={"StatsTable"}>
           <tbody>
             <tr>
-              <th>BUY</th>
-              <th>SEARCH</th>
-            </tr>
-            <tr>
-              <td> Receiver: {health["receiver"]}</td>
-              <td> Storage: {health["storage"]}</td>
-              <td> Processing: {health["max_buy_reading"]}</td>
-              <td> Audit: {health["max_search_reading"]}</td>
-              <td>Last Updated: {seconds} seconds ago</td>
+              <th> Receiver: {health["receiver"]}</th>
+              <th> Storage: {health["storage"]}</th>
+              <th> Processing: {health["max_buy_reading"]}</th>
+              <th> Audit: {health["max_search_reading"]}</th>
+              <th>Last Updated: {seconds} seconds ago</th>
             </tr>
           </tbody>
         </table>
