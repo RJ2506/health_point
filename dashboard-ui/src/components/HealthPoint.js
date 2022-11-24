@@ -45,10 +45,10 @@ export default function HealthCheck() {
               <th> Storage: {health["storage"]}</th>
             </tr>
             <tr>
-              <th> Processing: {health["max_buy_reading"]}</th>
+              <th> Processing: {health["processing"]}</th>
             </tr>
             <tr>
-              <th> Audit: {health["max_search_reading"]}</th>
+              <th> Audit: {health["audit"]}</th>
             </tr>
             <tr>
               <th>Last Updated: {seconds} seconds ago</th>
