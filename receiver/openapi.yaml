@@ -46,6 +46,42 @@ paths:
           description: search results matching criteria
         "400":
           description: invalid input, object invalid
+  /health:
+    get:
+      tags:
+        - devices
+      summary: gets the new purchase item
+      operationId: app.get_healt_check
+      description: check the status of the site
+      responses:
+        "200":
+          description: Successfully returned a search events
+          content:
+            application/json:
+              schema:
+                type: string
+                example: 'Running'
+        "400":
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Down'
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Down'
+  
 components:
   schemas:
     purchase:
