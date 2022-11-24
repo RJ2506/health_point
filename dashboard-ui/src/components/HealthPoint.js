@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import {format} from "date-fns";
 import "../App.css";
 
 export default function HealthCheck() {
@@ -32,9 +31,9 @@ export default function HealthCheck() {
   } else if (isLoaded === false) {
     return <div>Loading...</div>;
   } else if (isLoaded === true) {
-    // const date = new Date(health["last_updated"]);
-    // const seconds = Math.floor(date.getTime() / 1000);
-    const date = format(health["last_updated"], "s")
+    const date = new Date(healt['last_updated']);
+    const seconds = Math.floor(date.getTime() / 1000);
+
     return (
       <div>
         <h1>Health Points</h1>
@@ -53,7 +52,7 @@ export default function HealthCheck() {
               <th> Audit: {health["audit"]}</th>
             </tr>
             <tr>
-              <th>Last Updated: {date} seconds ago</th>
+              <th>Last Updated: {seconds} seconds ago</th>
             </tr>
           </tbody>
         </table>
