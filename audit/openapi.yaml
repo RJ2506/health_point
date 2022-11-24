@@ -100,10 +100,7 @@ paths:
       responses:
         "200":
           description: Successfully returned a search events
-          content:
-            application/json:
-              schema:
-                type: string
+          
                 
                     
         "400":

@@ -49,7 +49,7 @@ DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
 def get_healt_check():
     """return 200 status if its running"""
-    return '200'
+    return 200
 
 def create_table():
     """create the table if it doesn't exist"""
