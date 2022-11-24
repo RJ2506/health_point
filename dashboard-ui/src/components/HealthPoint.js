@@ -22,7 +22,7 @@ export default function HealthCheck() {
       )
   };
   useEffect(() => {
-    const interval = setInterval(() => getHealth(), 2000); // Update every 2 seconds
+    const interval = setInterval(() => getHealth(), 20000); // Update every 2 seconds
     return () => clearInterval(interval);
   }, [getHealth]);
 
@@ -31,6 +31,8 @@ export default function HealthCheck() {
   } else if (isLoaded === false) {
     return <div>Loading...</div>;
   } else if (isLoaded === true) {
+    const date = new Date(health["last_updated"]);
+    const seconds = Math.floor(date.getTime() / 1000);
     return (
       <div>
         <h1>Health Points</h1>
@@ -45,7 +47,7 @@ export default function HealthCheck() {
               <td> Storage: {health["storage"]}</td>
               <td> Processing: {health["max_buy_reading"]}</td>
               <td> Audit: {health["max_search_reading"]}</td>
-              <td>Last Updated: {health["last_updated"].getTIme()/ 1000} seconds ago</td>
+              <td>Last Updated: {seconds} seconds ago</td>
             </tr>
           </tbody>
         </table>
