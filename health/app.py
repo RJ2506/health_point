@@ -94,12 +94,13 @@ def populate_db():
     if result == None:
         hc = Health('Down','Down','Down','Down', time)
     else:
-        res_receiver = requests.get(app_config['eventstore']['receiver']+ "/" + "health" , timeout=5)
-        print(res_receiver.status_code)
-        # print(res_receiver.json())
-        if res_receiver.status_code == 200:
-            receiver = 'Running'
-        else:
+        try:
+            res_receiver = requests.get(app_config['eventstore']['receiver']+ "/" + "health" , timeout=5)
+        
+            # print(res_receiver.json())
+            if res_receiver.status_code == 200:
+                receiver = 'Running'
+        except:
             receiver = 'Down'
 
         res_storage = requests.get(app_config['eventstore']['storage']+ "/" + "health", timeout=5)
