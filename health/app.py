@@ -18,25 +18,32 @@ from base import Base
 from health import Health
 
 
-if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
-    print("In Test Environment")
-    app_conf_file = "/config/app_conf.yml"
-    log_conf_file = "/config/log_conf.yml"
-else:
-    print("In Dev Environment")
-    app_conf_file = "app_conf.yml"
-    log_conf_file = "log_conf.yml"
-with open(app_conf_file, 'r') as f:
-    app_config = yaml.safe_load(f.read())
+# if "TARGET_ENV" in os.environ and os.environ["TARGET_ENV"] == "test":
+#     print("In Test Environment")
+#     app_conf_file = "/config/app_conf.yml"
+#     log_conf_file = "/config/log_conf.yml"
+# else:
+#     print("In Dev Environment")
+#     app_conf_file = "app_conf.yml"
+#     log_conf_file = "log_conf.yml"
+# with open(app_conf_file, 'r') as f:
+#     app_config = yaml.safe_load(f.read())
 
-# External Logging Configuration
-with open(log_conf_file, 'r') as f:
+# # External Logging Configuration
+# with open(log_conf_file, 'r') as f:
+#     log_config = yaml.safe_load(f.read())
+#     logging.config.dictConfig(log_config)
+
+# logger = logging.getLogger('basicLogger')
+# logger.info("App Conf File: %s" % app_conf_file)
+# logger.info("Log Conf File: %s" % log_conf_file)
+with open('app_config.yml', 'r') as f:
+    app_config = yaml.safe_load(f.read())
+with open('log_conf.yml', 'r') as f:
     log_config = yaml.safe_load(f.read())
     logging.config.dictConfig(log_config)
 
 logger = logging.getLogger('basicLogger')
-logger.info("App Conf File: %s" % app_conf_file)
-logger.info("Log Conf File: %s" % log_conf_file)
 
 DB_ENGINE = create_engine(f"sqlite:///{app_config['datastore']['filename']}")
 
@@ -66,18 +73,20 @@ def display_health_status():
     session = DB_SESSION()
     time = datetime.datetime.now()
     readings = session.query(Health).order_by(Health.last_updated.desc()).first()
-    print(readings)
+    
     if readings == None:
         ss = Health('Down','Down','Down','Down', time)
         session.add(ss)
         session.commit()
         readings = session.query(Health).order_by(Health.last_updated.desc()).first()
         result = readings.to_dict()
+        print(result)
         session.close()
         return result, 201
 
     else:
         result = readings.to_dict()
+        print(result)
         session.close()    
         return result, 201
 
