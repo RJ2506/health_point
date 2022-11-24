@@ -40,9 +40,17 @@ export default function HealthCheck() {
           <tbody>
             <tr>
               <th> Receiver: {health["receiver"]}</th>
+            </tr>
+            <tr>
               <th> Storage: {health["storage"]}</th>
+            </tr>
+            <tr>
               <th> Processing: {health["max_buy_reading"]}</th>
+            </tr>
+            <tr>
               <th> Audit: {health["max_search_reading"]}</th>
+            </tr>
+            <tr>
               <th>Last Updated: {seconds} seconds ago</th>
             </tr>
           </tbody>
