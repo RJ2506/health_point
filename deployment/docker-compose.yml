@@ -120,7 +120,6 @@ services:
     volumes:
       - /home/kafka/config/health:/config
       - /home/kafka/logs:/logs
-      - health-db:/data
     depends_on:
       - receiver
       - storage
@@ -144,4 +143,4 @@ services:
 volumes:
   my-db:
   processing-db:
-  health-db:
+
