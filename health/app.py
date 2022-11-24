@@ -66,7 +66,7 @@ def display_health_status():
     session = DB_SESSION()
     time = datetime.datetime.now()
     readings = session.query(Health).order_by(Health.last_updated.desc()).first()
-    
+    print(readings)
     if readings == None:
         ss = Health('Down','Down','Down','Down', time)
         session.add(ss)
