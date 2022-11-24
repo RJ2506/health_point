@@ -39,7 +39,7 @@ logger.info("Log Conf File: %s" % log_conf_file)
 
 def get_healt_check():
     """return 200 status if its running"""
-    return 200
+    return '200'
 
 def purchase_item(body):
     """purchase the item you selected"""
@@ -53,25 +53,25 @@ def purchase_item(body):
     #     json.dumps(body),
     #     headers={"Content-type": "application/json"},
     # )
-    while count < app_config["log"]["max_retry"]:
-        try:
-            server = f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}'
-            client = KafkaClient(hosts=server)
-            topic = client.topics[str.encode(app_config["events"]["topic"])]
+    # while count < app_config["log"]["max_retry"]:
+    try:
+        server = f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}'
+        client = KafkaClient(hosts=server)
+        topic = client.topics[str.encode(app_config["events"]["topic"])]
 
-            producer = topic.get_sync_producer()
+        producer = topic.get_sync_producer()
 
-            msg = {
-                "type": "purchase",
-                "datetime": datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
-                "payload": body
-            }
+        msg = {
+            "type": "purchase",
+            "datetime": datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+            "payload": body
+        }
 
-            msg_str = json.dumps(msg)
-            producer.produce(msg_str.encode('utf-8'))
-        except:
-            logger.error('connection lost')
-            count += 1
+        msg_str = json.dumps(msg)
+        producer.produce(msg_str.encode('utf-8'))
+    except:
+        logger.error('connection lost')
+        count += 1
     # logger.info(f"Returned event buy status ")
     return 201
 
@@ -89,25 +89,25 @@ def search_item(body):
     #     headers={"Content-type": "application/json"},
     # )
     # logging.info(f"Returned event search status {res.status_code}")
-    while count < app_config["log"]["max_retry"]:
-        try:
-            server = f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}'
-            client = KafkaClient(hosts=server)
-            topic = client.topics[str.encode(app_config["events"]["topic"])]
+    # while count < app_config["log"]["max_retry"]:
+    try:
+        server = f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}'
+        client = KafkaClient(hosts=server)
+        topic = client.topics[str.encode(app_config["events"]["topic"])]
 
-            producer = topic.get_sync_producer()
+        producer = topic.get_sync_producer()
 
-            msg = {
-                "type": "search",
-                "datetime": datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
-                "payload": body
-            }
+        msg = {
+            "type": "search",
+            "datetime": datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+            "payload": body
+        }
 
-            msg_str = json.dumps(msg)
-            producer.produce(msg_str.encode('utf-8'))
-        except:
-            logger.error('connection lost')
-            count += 1       
+        msg_str = json.dumps(msg)
+        producer.produce(msg_str.encode('utf-8'))
+    except:
+        logger.error('connection lost')
+        count += 1       
     return 201
     
 app = connexion.FlaskApp(__name__, specification_dir="")

@@ -80,13 +80,11 @@ def display_health_status():
         session.commit()
         readings = session.query(Health).order_by(Health.last_updated.desc()).first()
         result = readings.to_dict()
-        print(result)
         session.close()
         return result, 201
 
     else:
         result = readings.to_dict()
-        print(result)
         session.close()    
         return result, 201
 
