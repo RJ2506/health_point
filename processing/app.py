@@ -46,6 +46,11 @@ DB_ENGINE = create_engine(f"sqlite:///{app_config['datastore']['filename']}")
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
+
+def get_healt_check():
+    """return 200 status if its running"""
+    return 200
+
 def create_table():
     """create the table if it doesn't exist"""
     conn = sqlite3.connect(app_config['datastore']['filename'])

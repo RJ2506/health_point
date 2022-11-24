@@ -57,6 +57,11 @@ DB_ENGINE = create_engine(
 Base.metadata.bind = DB_ENGINE
 DB_SESSION = sessionmaker(bind=DB_ENGINE)
 
+def get_healt_check():
+    """return 200 status if its running"""
+    return 200
+
+
 def get_purchase_item(start_timestamp, end_timestamp):
     """get the  timestamp of the purchase tiem"""
     session = DB_SESSION()

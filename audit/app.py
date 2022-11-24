@@ -33,6 +33,9 @@ logger = logging.getLogger('basicLogger')
 logger.info("App Conf File: %s" % app_conf_file)
 logger.info("Log Conf File: %s" % log_conf_file)
 
+def get_healt_check():
+    """return 200 status if its running"""
+    return 200
 
 def get_purchase_item(index):
     """purchase the item you selected"""

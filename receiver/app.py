@@ -32,10 +32,14 @@ logger.info("Log Conf File: %s" % log_conf_file)
 
 
 
-server = f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}'
-client = KafkaClient(hosts=server)
-topic = client.topics[str.encode(app_config["events"]["topic"])]
+# server = f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}'
+# client = KafkaClient(hosts=server)
+# topic = client.topics[str.encode(app_config["events"]["topic"])]
 
+
+def get_healt_check():
+    """return 200 status if its running"""
+    return 200
 
 def purchase_item(body):
     """purchase the item you selected"""
@@ -51,9 +55,9 @@ def purchase_item(body):
     # )
     while count < app_config["log"]["max_retry"]:
         try:
-            # server = f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}'
-            # client = KafkaClient(hosts=server)
-            # topic = client.topics[str.encode(app_config["events"]["topic"])]
+            server = f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}'
+            client = KafkaClient(hosts=server)
+            topic = client.topics[str.encode(app_config["events"]["topic"])]
 
             producer = topic.get_sync_producer()
 
@@ -87,9 +91,9 @@ def search_item(body):
     # logging.info(f"Returned event search status {res.status_code}")
     while count < app_config["log"]["max_retry"]:
         try:
-            # server = f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}'
-            # client = KafkaClient(hosts=server)
-            # topic = client.topics[str.encode(app_config["events"]["topic"])]
+            server = f'{app_config["events"]["hostname"]}:{app_config["events"]["port"]}'
+            client = KafkaClient(hosts=server)
+            topic = client.topics[str.encode(app_config["events"]["topic"])]
 
             producer = topic.get_sync_producer()
 
