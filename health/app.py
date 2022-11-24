@@ -94,6 +94,7 @@ def populate_db():
         hc = Health('Down','Down','Down','Down', time)
     else:
         res_receiver = requests.get(app_config['eventstore']['receiver'], timeout=5)
+        print(res_receiver.json())
         if res_receiver.status_code == 200:
             receiver = 'Running'
         else:
